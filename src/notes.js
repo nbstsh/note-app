@@ -40,7 +40,7 @@ const createNote = () => {
 const updateNote = ({id, title, body}) => {
     const note = notes.find((note) => note.id === id)
     if (!note) return 
-    
+
     if (typeof title === 'string') {
         note.title = title
         saveNotes()
@@ -51,7 +51,14 @@ const updateNote = ({id, title, body}) => {
     }
 }
 
+const removeNote = (id) => {
+    const index = notes.findIndex((note) => note.id === id)
 
+    if (index > -1) {
+        notes.splice(index, 1)
+        saveNotes()
+    }
+}
 
 const resetNotes = () => {
     notes = []
@@ -63,5 +70,5 @@ const getNotes = () => notes
 
 loadNotes()
 
-export { saveNotes, loadNotes, getNotes, createNote, updateNote, resetNotes }
+export { saveNotes, loadNotes, getNotes, createNote, updateNote, resetNotes, removeNote }
 
