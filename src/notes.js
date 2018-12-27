@@ -1,3 +1,6 @@
+import uuidv4 from 'uuidv4'
+import moment from 'moment'
+
 let notes = []
 
 /*
@@ -23,9 +26,21 @@ const loadNotes = () => {
     }
 }
 
+const createNote = () => {
+    notes.push({
+        id: uuidv4(),
+        title: '',
+        text: ''  ,
+        createdAt: moment().valueOf(),
+        updatedAt: moment().valueOf()
+    })
+    saveNotes()
+}
+
 const getNotes = () => notes
 
 
 loadNotes()
 
-export { saveNotes, loadNotes, getNotes }
+export { saveNotes, loadNotes, getNotes, createNote }
+
