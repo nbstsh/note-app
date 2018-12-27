@@ -39,14 +39,19 @@ const createNote = () => {
 
 const updateNote = ({id, title, body}) => {
     const note = notes.find((note) => note.id === id)
-    if (note) {
-        note.title = title   
+    if (!note) return 
+    
+    if (typeof title === 'string') {
+        note.title = title
+        saveNotes()
+    }
+    if (typeof body === 'body') {
         note.body = body
-        note.id = id
-        note.updatedAt = moment().valueOf()
         saveNotes()
     }
 }
+
+
 
 const resetNotes = () => {
     notes = []
