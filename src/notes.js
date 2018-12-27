@@ -30,10 +30,26 @@ const createNote = () => {
     notes.push({
         id: uuidv4(),
         title: '',
-        text: ''  ,
+        body: ''  ,
         createdAt: moment().valueOf(),
         updatedAt: moment().valueOf()
     })
+    saveNotes()
+}
+
+const updateNote = ({id, title, body}) => {
+    const note = notes.find((note) => note.id === id)
+    if (note) {
+        note.title = title   
+        note.body = body
+        note.id = id
+        note.updatedAt = moment().valueOf()
+        saveNotes()
+    }
+}
+
+const resetNotes = () => {
+    notes = []
     saveNotes()
 }
 
@@ -42,5 +58,5 @@ const getNotes = () => notes
 
 loadNotes()
 
-export { saveNotes, loadNotes, getNotes, createNote }
+export { saveNotes, loadNotes, getNotes, createNote, updateNote, resetNotes }
 
