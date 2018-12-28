@@ -2,12 +2,6 @@ import moment from 'moment'
 import { getFilters, setFilters } from './filters'
 import { saveNotes, loadNotes, getNotes, createNote, upateNote, updateNote, resetNotes, removeNote } from './notes'
 
-/*
-div.notes
-	a.list-item
-		p.list-item__title
-		p.list-item__subtitle
-*/
 
 const generateNoteDOM = ({ id, title, updatedAt }) => {
     const noteEl = document.createElement('a')
@@ -26,7 +20,7 @@ const generateNoteDOM = ({ id, title, updatedAt }) => {
 const generateTitleElement = (title) => {
     const titleEl = document.createElement('p')
     titleEl.classList.add('list-item__title')
-    titleEl.textContent = title
+    titleEl.textContent = title ? title : 'Unamed Note'
     return titleEl
 }
 
@@ -39,5 +33,16 @@ const generateLastEditedElement = (updatedAt) => {
 
 const generateLastEditedText = (timestamp) => `Last edited ${moment(timestamp).fromNow()}`
 
+const renderNotes = () => {
+    const notes = getNotes()
+    if (!notes) return
+    
+    const notesEl = document.querySelector('#notes')
+    
+    notes.forEach((note) => {
+        notesEl.append(generateNoteDOM(note))
+    })
+}
 
-export { generateNoteDOM, generateLastEditedText }
+
+export { generateNoteDOM, generateLastEditedText, renderNotes }
