@@ -46,10 +46,12 @@ const updateNote = ({id, title, body}) => {
 
     if (typeof title === 'string') {
         note.title = title
+        note.updatedAt = moment().valueOf()
         saveNotes()
     }
     if (typeof body === 'string') {
         note.body = body
+        note.updatedAt = moment().valueOf()
         saveNotes()
     }
 }
