@@ -48,7 +48,7 @@ const updateNote = ({id, title, body}) => {
         note.title = title
         saveNotes()
     }
-    if (typeof body === 'body') {
+    if (typeof body === 'string') {
         note.body = body
         saveNotes()
     }
