@@ -1,5 +1,5 @@
 import { setFilters } from './filters'
-import { createNote } from './notes'
+import { loadNotes, createNote } from './notes'
 import { renderNotes } from './view'
 
 
@@ -19,4 +19,11 @@ document.querySelector('#filter-by').addEventListener('change', (e) => {
 document.querySelector('#create-note').addEventListener('click', (e) => {
     const id = createNote()
     location.assign(`edit.html#${id}`)
+})
+
+window.addEventListener('storage', (e) => {
+    if (e.key === 'notes') {
+        loadNotes()
+        renderNotes()
+    }
 })
