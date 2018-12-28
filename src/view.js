@@ -33,16 +33,55 @@ const generateLastEditedElement = (updatedAt) => {
 
 const generateLastEditedText = (timestamp) => `Last edited ${moment(timestamp).fromNow()}`
 
+
 const renderNotes = () => {
     const notes = getNotes()
     if (!notes) return
     
     const notesEl = document.querySelector('#notes')
     
-    notes.forEach((note) => {
+    getFilteredNotes(notes).forEach((note) => {
         notesEl.append(generateNoteDOM(note))
     })
 }
+
+// get filtered and sorted notes
+const getFilteredNotes = (notes) => {
+    if (!notes) return
+    const filters = getFilters()
+
+    return notes
+    .filter((note) => note.title.toLowerCase().includes(filters.searchText))
+    .sort(compareNotes)
+}
+
+//compare function to sort notes
+const compareNotes = (a, b) => {
+    const sortBy = getFilters().sortBy
+
+    return  sortBy === 'byEdited' ? compareNotesByEdited(a, b) :
+            sortBy === 'byCreated' ? compareNotesByCreated(a, b) :
+            sortBy === 'alphabetical' ? compareNotesAlphabeticaly(a, b) : 0
+}
+
+const compareNotesByEdited = (a, b) => {
+    if (a.updatedAt > b.updatedAt) return -1
+    if (a.updatedAt < b.updatedAt) return 1
+    return 0
+}
+
+const compareNotesByCreated = (a, b) => {
+    if (a.createdAt > b.createdAt) return -1
+    if (a.createdAt < b.createdAt) return 1
+    return 0
+}
+
+const compareNotesAlphabeticaly = (a, b) => {
+    if (a.title.toLowerCase() < b.title.toLowerCase()) return -1
+    if (a.title.toLowerCase() > b.title.toLowerCase()) return 1
+    return 0
+}
+
 
 const initializeEditPage = (id) => {
     const notes = getNotes()
@@ -62,4 +101,4 @@ const initializeEditPage = (id) => {
 }
 
 
-export { generateNoteDOM, generateLastEditedText, renderNotes, initializeEditPage }
+export { generateNoteDOM, generateLastEditedText, renderNotes, initializeEditPage, getFilteredNotes }
