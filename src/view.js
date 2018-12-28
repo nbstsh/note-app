@@ -36,14 +36,24 @@ const generateLastEditedText = (timestamp) => `Last edited ${moment(timestamp).f
 
 const renderNotes = () => {
     const notes = getNotes()
-    if (!notes) return
-    
     const notesEl = document.querySelector('#notes')
     notesEl.innerHTML = ''
+
+    if (notes.length === 0) {
+        notesEl.append(generateEmptyMessage())
+        return 
+    }
     
     getFilteredNotes(notes).forEach((note) => {
         notesEl.append(generateNoteDOM(note))
     })
+}
+
+const generateEmptyMessage = () => {
+    const emptyMessageEl = document.createElement('p')
+    emptyMessageEl.textContent = 'No notes to show'
+    emptyMessageEl.classList.add('empty-message')
+    return emptyMessageEl
 }
 
 // get filtered and sorted notes
