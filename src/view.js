@@ -44,5 +44,22 @@ const renderNotes = () => {
     })
 }
 
+const initializeEditPage = (id) => {
+    const notes = getNotes()
+    if (!notes) return
 
-export { generateNoteDOM, generateLastEditedText, renderNotes }
+    const note = notes.find((note) => note.id === id)
+    if (!note) return
+
+    const lastEditedEl = document.querySelector('#last-edited')
+    lastEditedEl.textContent = generateLastEditedText(note.updatedAt)
+
+    const titleEl = document.querySelector('#note-title')
+    titleEl.value = note.title
+
+    const noteBodyEl = document.querySelector('#note-body')
+    noteBodyEl.value = note.body
+}
+
+
+export { generateNoteDOM, generateLastEditedText, renderNotes, initializeEditPage }
