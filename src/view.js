@@ -39,6 +39,7 @@ const renderNotes = () => {
     if (!notes) return
     
     const notesEl = document.querySelector('#notes')
+    notesEl.innerHTML = ''
     
     getFilteredNotes(notes).forEach((note) => {
         notesEl.append(generateNoteDOM(note))
