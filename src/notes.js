@@ -27,14 +27,17 @@ const loadNotes = () => {
 }
 
 const createNote = () => {
+    const id = uuidv4()
     notes.push({
-        id: uuidv4(),
+        id,
         title: '',
         body: ''  ,
         createdAt: moment().valueOf(),
         updatedAt: moment().valueOf()
     })
     saveNotes()
+    
+    return id
 }
 
 const updateNote = ({id, title, body}) => {
