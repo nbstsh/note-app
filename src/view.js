@@ -1,6 +1,6 @@
 import moment from 'moment'
-import { getFilters, setFilters } from './filters'
-import { saveNotes, loadNotes, getNotes, createNote, upateNote, updateNote, resetNotes, removeNote } from './notes'
+import { getFilters } from './filters'
+import { getNotes } from './notes'
 
 
 const generateNoteDOM = ({ id, title, updatedAt }) => {
