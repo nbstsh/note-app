@@ -1,4 +1,4 @@
-import { updateNote, removeNote } from './notes'
+import { loadNotes, updateNote, removeNote } from './notes'
 import { initializeEditPage } from './view'
 
 // Initialize edit Page
@@ -22,4 +22,11 @@ document.querySelector('#note-body').addEventListener('input', (e) => {
 document.querySelector('#remove-note').addEventListener('click', (e) => {
     removeNote(id)
     location.assign('/index.html')
+})
+
+window.addEventListener('storage', (e) => {
+    if (e.key === 'notes') {
+        loadNotes()
+        initializeEditPage(id)
+    }
 })
